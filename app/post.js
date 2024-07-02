@@ -1,5 +1,5 @@
-const https = require("https");
-const url = require("url");
+import https from "https";
+import url from "url";
 
 const parsed = url.parse(process.env.URL);
 
@@ -48,7 +48,7 @@ function sendMessage(record, callback) {
   postToSlack(record.Sns.Message, callback);
 }
 
-exports.handler = function (event, context, callback) {
+export function handler(event, context, callback) {
   if (!event.Records) {
     console.log("No records to process");
     return callback(null);
@@ -62,7 +62,7 @@ exports.handler = function (event, context, callback) {
       }
     });
   }
-};
+}
 
 if (process.env.TEST) {
   const testEvent = {
@@ -74,7 +74,7 @@ if (process.env.TEST) {
       },
     ],
   };
-  exports.handler(testEvent, {}, console.log);
+  handler(testEvent, {}, console.log);
 }
 
 const formatDateTime = (dateString) => {
